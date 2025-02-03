@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DepositRepository extends JpaRepository<Deposit, Long> {
-    List<Deposit> findByMinContractPeriodLessThanEqualAndMaxContractPeriodGreaterThanEqualAndMinDepositLimitLessThanEqual(
-            int minTerm, int maxTerm, Long minAmount);
+    List<Deposit> findAll();
 }

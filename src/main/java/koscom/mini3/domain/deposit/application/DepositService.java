@@ -17,16 +17,18 @@ public class DepositService {
     }
 
     public List<DepositResponseDto> getDepositsSortedByBaseRate(int term, Long minAmount) {
-        return depositRepository.findByMinContractPeriodLessThanEqualAndMaxContractPeriodGreaterThanEqualAndMinDepositLimitLessThanEqual(term, term, minAmount)
-                .stream()
+        return depositRepository.findAll().stream()
+                .filter(deposit -> term == 0 || (deposit.getMinContractPeriod() <= term && deposit.getMaxContractPeriod() >= term))
+                .filter(deposit -> minAmount==0 || deposit.getMinDepositLimit() <= minAmount)
                 .sorted((d1, d2) -> d2.getBaseInterestRate().compareTo(d1.getBaseInterestRate()))
                 .map(DepositResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     public List<DepositResponseDto> getDepositsSortedByHighRate(int term, Long minAmount) {
-        return depositRepository.findByMinContractPeriodLessThanEqualAndMaxContractPeriodGreaterThanEqualAndMinDepositLimitLessThanEqual(term, term, minAmount)
-                .stream()
+        return depositRepository.findAll().stream()
+                .filter(deposit -> term == 0 || (deposit.getMinContractPeriod() <= term && deposit.getMaxContractPeriod() >= term))
+                .filter(deposit -> minAmount==0 || deposit.getMinDepositLimit() <= minAmount)
                 .sorted((d1, d2) -> d2.getMaxInterestRate().compareTo(d1.getMaxInterestRate()))
                 .map(DepositResponseDto::new)
                 .collect(Collectors.toList());
