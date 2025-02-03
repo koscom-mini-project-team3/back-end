@@ -123,7 +123,7 @@ public class ChatGptService {
                             return Flux.empty();
                         }
                     } catch (JsonProcessingException e) {
-                        return Flux.error(new RuntimeException("Error parsing response", e));
+                        return Flux.empty();
                     }
                 });
     }
