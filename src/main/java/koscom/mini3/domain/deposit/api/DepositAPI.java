@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -21,10 +22,18 @@ public class DepositAPI {
 
     // ✅ Mock 예적금 데이터
     private static final List<Deposit> MOCK_DEPOSITS = Arrays.asList(
-            new Deposit("예금A", 3.5, LocalDate.of(2025, 1, 1)),
-            new Deposit("예금B", 2.8, LocalDate.of(2024, 12, 1)),
-            new Deposit("예금C", 4.2, LocalDate.of(2025, 6, 15))
-    );
+            new Deposit(1L, "한국은행", "정기예금A", "12개월", "인터넷, 영업점", "개인, 법인", "급여 이체 시 우대",
+                    1000000L, 100000000L, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 12, 31),
+                    "만기 후 원금과 이자 지급", new BigDecimal("3.5"), new BigDecimal("4.2"), LocalDate.of(2025, 6, 15), "http://example.com/pdf", "http://example.com/image",
+                    new BigDecimal("3.0"), new BigDecimal("3.5"), new BigDecimal("4.0")),
+            new Deposit(2L, "우리은행", "정기예금B", "24개월", "영업점", "개인", "장기 가입 시 우대",
+                    500000L, 50000000L, false, null, null,
+                    "만기 후 원금과 이자 지급", new BigDecimal("2.8"), new BigDecimal("3.5"), LocalDate.of(2024, 12, 1), "http://example.com/pdf2", "http://example.com/image2",
+                    new BigDecimal("2.5"), new BigDecimal("3.0"), new BigDecimal("3.8")),
+            new Deposit(3L, "신한은행", "정기예금C", "36개월", "모바일 앱", "개인, 법인", "급여 이체 및 자동이체 시 우대",
+                    2000000L, 200000000L, true, LocalDate.of(2024, 6, 1), LocalDate.of(2025, 6, 30),
+                    "만기 후 원금과 이자 지급", new BigDecimal("4.0"), new BigDecimal("5.0"), LocalDate.of(2025, 12, 1), "http://example.com/pdf3", "http://example.com/image3",
+                    new BigDecimal("3.8"), new BigDecimal("4.2"), new BigDecimal("4.8")));
 
     // ✅ 이자율 순 정렬 API (내림차순)
     @Operation(
@@ -35,12 +44,11 @@ public class DepositAPI {
     @GetMapping("/sort-by-interest")
     public List<Deposit> getDepositsSortedByInterest() {
         return MOCK_DEPOSITS.stream()
-                .sorted(Comparator.comparingDouble(Deposit::getInterestRate).reversed())
+                .sorted(Comparator.comparing(Deposit::getMaxInterestRate).reversed())
                 .collect(Collectors.toList());
     }
 
     // ✅ 만기일 순 정렬 API (오름차순)
-
     @Operation(
             summary = "만기일 순 정렬된 예적금 목록 조회",
             description = "예적금 목록을 만기일이 가까운 순서대로 정렬하여 반환합니다."
@@ -49,7 +57,7 @@ public class DepositAPI {
     @GetMapping("/sort-by-maturity")
     public List<Deposit> getDepositsSortedByMaturity() {
         return MOCK_DEPOSITS.stream()
-                .sorted(Comparator.comparing(Deposit::getMaturityDate))
+                .sorted(Comparator.comparing(Deposit::getMaxContractPeriod))
                 .collect(Collectors.toList());
     }
 }
