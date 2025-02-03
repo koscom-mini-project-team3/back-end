@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 public class ChatGptConfig {
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
-    public static final String CHAT_MODEL = "gpt-4o";
-    public static final Integer MAX_TOKEN = 4096;
+    public static final String CHAT_MODEL = "gpt-4o-mini";
+    public static final Integer MAX_TOKEN = 15000;
     public static final Boolean STREAM = true;
     public static final String ROLE = "user";
     public static final Double TEMPERATURE = 0.6;
@@ -25,3 +25,5 @@ public class ChatGptConfig {
         return apiKey;
     }
 }
+
+// gpt-4o-mini 써보세요!

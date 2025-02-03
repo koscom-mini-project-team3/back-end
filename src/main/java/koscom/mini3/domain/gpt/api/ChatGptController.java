@@ -17,9 +17,9 @@ public class ChatGptController {
     private final ChatGptService chatGptService;
 
     @PostMapping(value = "ask-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> ask(@RequestBody QuestionRequest questionRequest, @RequestBody List<Long> productsIds) {
+    public Flux<String> ask(@RequestBody QuestionRequest questionRequest) {
         try {
-            return chatGptService.ask(questionRequest, productsIds);
+            return chatGptService.ask(questionRequest);
         } catch (JsonProcessingException e) {
             return Flux.empty();
         }
