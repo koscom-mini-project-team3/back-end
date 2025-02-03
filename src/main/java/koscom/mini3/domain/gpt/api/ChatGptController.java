@@ -34,5 +34,14 @@ public class ChatGptController {
         }
     }
 
+    @PostMapping(value = "ask-term", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> askTerm(@RequestBody String term) {
+        try {
+            return chatGptService.askTerm(term);
+        } catch (JsonProcessingException e) {
+            return Flux.empty();
+        }
+    }
+
 }
 

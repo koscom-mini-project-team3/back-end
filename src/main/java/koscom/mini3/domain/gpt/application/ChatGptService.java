@@ -240,26 +240,26 @@ public class ChatGptService {
         String requestValue = objectMapper.writeValueAsString(chatGptRequest);
 
         return client.post()
-                .bodyValue(requestValue)
-                .accept(MediaType.TEXT_EVENT_STREAM)
-                .retrieve()
-                .bodyToFlux(String.class)
-                .flatMap(response -> {
-                    try {
-                        // 응답을 파싱하여 'delta.content'만 추출
-                        JsonNode jsonResponse = objectMapper.readTree(response);
-                        JsonNode deltaContent = jsonResponse.path("choices").get(0).path("delta").path("content");
+            .bodyValue(requestValue)
+            .accept(MediaType.TEXT_EVENT_STREAM)
+            .retrieve()
+            .bodyToFlux(String.class)
+            .flatMap(response -> {
+                try {
+                    // 응답을 파싱하여 'delta.content'만 추출
+                    JsonNode jsonResponse = objectMapper.readTree(response);
+                    JsonNode deltaContent = jsonResponse.path("choices").get(0).path("delta").path("content");
 
-                        if (!deltaContent.isMissingNode()) {
-                            // content를 바로 반환하는 Flux로 처리
-                            return Flux.just(deltaContent.asText());
-                        } else {
-                            // content가 없는 경우 빈 Flux 반환
-                            return Flux.empty();
-                        }
-                    } catch (JsonProcessingException e) {
-                        return Flux.error(new RuntimeException("Error parsing response", e));
+                    if (!deltaContent.isMissingNode()) {
+                        // content를 바로 반환하는 Flux로 처리
+                        return Flux.just(deltaContent.asText());
+                    } else {
+                        // content가 없는 경우 빈 Flux 반환
+                        return Flux.empty();
                     }
-                });
+                } catch (JsonProcessingException e) {
+                    return Flux.empty();
+                }
+            });
     }
 }
