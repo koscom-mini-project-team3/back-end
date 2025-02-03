@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 public class ChatGptConfig {
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
-    public static final String CHAT_MODEL = "gpt-3.5-turbo";
-    public static final Integer MAX_TOKEN = 300;
+    public static final String CHAT_MODEL = "gpt-4o";
+    public static final Integer MAX_TOKEN = 4096;
     public static final Boolean STREAM = true;
     public static final String ROLE = "user";
     public static final Double TEMPERATURE = 0.6;

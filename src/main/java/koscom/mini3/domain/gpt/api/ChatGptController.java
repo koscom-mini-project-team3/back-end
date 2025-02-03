@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/gpt")
@@ -22,5 +23,15 @@ public class ChatGptController {
             return Flux.empty();
         }
     }
+
+    @PostMapping(value = "ask-single", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<String> askSingle(@RequestBody QuestionRequest questionRequest) {
+        try {
+            return chatGptService.askSingleResponse(questionRequest);
+        } catch (JsonProcessingException e) {
+            return Mono.just("{\"error\": \"JSON processing error\"}");
+        }
+    }
+
 }
 
