@@ -30,9 +30,11 @@ public class Deposit {
     @Schema(description = "예적금 상품명", example = "정기예금A")
     private String productName;
 
-    @Column(columnDefinition = "TEXT")
-    @Schema(description = "계약 기간", example = "12개월")
-    private String contractPeriod;
+    @Schema(description = "최소 가입 기간 (개월)", example = "6")
+    private Integer minContractPeriod;
+
+    @Schema(description = "최대 가입 기간 (개월)", example = "24")
+    private Integer maxContractPeriod;
 
     @Column(columnDefinition = "TEXT")
     @Schema(description = "가입 방법", example = "인터넷, 영업점")
@@ -70,9 +72,6 @@ public class Deposit {
 
     @Schema(description = "최대 이자율 (%)", example = "5.00")
     private BigDecimal maxInterestRate;
-
-    @Schema(description = "최대 계약 가능 기간", example = "2030-12-31")
-    private LocalDate maxContractPeriod;
 
     @Column(columnDefinition = "TEXT")
     @Schema(description = "상품 설명서 PDF URL", example = "https://example.com/deposit.pdf")
