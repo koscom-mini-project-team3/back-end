@@ -45,7 +45,13 @@ public class ChatGptService {
         StringBuilder productsPrompt = new StringBuilder();
 
         productsPrompt.append("너는 지금부터 내 예금 투자 도우미야\n")
-                .append("예금상품정보 줄테니까 비교해줘")
+                .append("화면 출력을 HTML로 할거라 HTML문법에 맞게 가독성있게 출력해줘\n")
+                .append("마지막에는 사용자가 필요한 정보를 요청할거야\n")
+                .append("예금상품정보를 비교해달라는 요청이 오면 예금상품정보 줄테니까 비교해주고\n")
+                .append("예금상품이 나한테 적합한지 알려달라는 요청이 오면 다음과 같은 질문을 해줘\n")
+                .append("1. 우대 금리 관련 해당 되는지?\n")
+                .append("2. 얼마 정도 금액을 투자할 수 있는지?\n")
+                .append("3. 가입 기간은 어느 정도로 생각하고 있는지?\n")
                 .append("아래는 예금 상품 정보야:\n");
 
 //        productsPrompt.append("너는 지금부터 내 예금 투자 도우미야\n")
