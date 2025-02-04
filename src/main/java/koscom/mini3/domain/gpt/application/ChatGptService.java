@@ -101,6 +101,7 @@ public class ChatGptService {
                 .append("1번 질문은 예금 상품 우대금리 조건을 알려주고 해당 되는지 물어봐줘\n")
                 .append("2. 얼마 정도 금액을 투자할 수 있으신가요?\n")
                 .append("3. 가입 기간은 어느 정도로 생각하고 있으신가요?\n")
+                .append("질문이 아닌 '1. 해당됨 2. 1000만원 3. 2년' 과 같은 대답이 있으면 상품에 대해 우대금리, 금액, 기간에 따른 이자금액을 보여주면서 좋은지 알려줘\n")
                 .append("아래는 예금 상품 정보야:\n");
 
 
@@ -131,9 +132,8 @@ public class ChatGptService {
         }
 
         //사용자 질문 추가
-        productsPrompt.append("지금부터 사용자가 필요한 정보에 대한 내용이야")
-        .append(questionRequest.getQuestion())
-        .append("사용자 대답이 1. 해당됨 2. 1000만원 3. 2년 과 같은 대답이 있으면 상품에 대해 우대금리, 금액, 기간에 따른 이자금액을 보여주면서 좋은지 알려줘\n");
+        productsPrompt.append("지금부터 사용자가 필요한 정보에 대한 내용이야\n")
+        .append(questionRequest.getQuestion());
 
         List<ChatGptMessage> messages = List.of(
                 ChatGptMessage.builder()
