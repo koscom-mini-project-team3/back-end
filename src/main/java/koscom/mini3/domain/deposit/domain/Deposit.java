@@ -90,6 +90,7 @@ public class Deposit {
     @Schema(description = "24개월 이자율 (%)", example = "4.00")
     private BigDecimal twentyFourMonthInterestRate;
 
+    @Column(columnDefinition = "TEXT")
     @Schema(description = "pdf 전문", example = "어쩌구저쩌구")
     private String pdfString;
 }
