@@ -62,7 +62,7 @@ public class ChatGptService {
                 .append("3. 가입 기간은 어느 정도로 생각하고 있으신가요?\n")
                 .append("아래는 예금 상품 정보야:\n");
 
-        // ✅ depositRepository에서 pdf_string 조회 후 안전하게 처리
+
 
         List<String> depositInfoList = depositRepository.findAllById(questionRequest.getIds())
                 .stream()
@@ -74,8 +74,8 @@ public class ChatGptService {
                         pdfString = "설명 없음";
                     } else {
                         pdfString = pdfString
-                                .replaceAll("[\\x00-\\x1F]", "") // ✅ 제어 문자 제거
-                                .replace("\"", "\\\""); // ✅ JSON 파싱 오류 방지
+                                .replaceAll("[\\x00-\\x1F]", "")
+                                .replace("\"", "\\\"");
                     }
 
                     return "상품명: " + productName + "\n" +
@@ -158,8 +158,8 @@ public class ChatGptService {
                     pdfString = "설명 없음";
                 } else {
                     pdfString = pdfString
-                        .replaceAll("[\\x00-\\x1F]", "") // ✅ 제어 문자 제거
-                        .replace("\"", "\\\""); // ✅ JSON 파싱 오류 방지
+                        .replaceAll("[\\x00-\\x1F]", "")
+                        .replace("\"", "\\\"");
                 }
 
                 return "상품명: " + productName + "\n" +

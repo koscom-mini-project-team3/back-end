@@ -23,27 +23,27 @@ public class NcpS3Service {
     @Value("${ncp.object-storage.bucket-name}")
     private String bucketName;
 
-    // ✅ 파일 업로드 후 URL 반환
+
     public String uploadFile(MultipartFile file) {
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename(); // 고유 파일명 생성
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
         try {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(fileName)
-                    .acl(ObjectCannedACL.PUBLIC_READ) // 업로드된 파일을 퍼블릭으로 설정 (URL 접근 가능)
+                    .acl(ObjectCannedACL.PUBLIC_READ)
                     .build();
 
             s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
 
-            return getFileUrl(fileName); // 업로드 후 URL 반환
+            return getFileUrl(fileName);
 
         } catch (IOException e) {
             throw new RuntimeException("파일 업로드 중 오류 발생: " + fileName, e);
         }
     }
 
-    // ✅ 업로드된 파일 URL 반환
+
     private String getFileUrl(String fileName) {
         return endpoint + "/" + bucketName + "/" + fileName;
     }

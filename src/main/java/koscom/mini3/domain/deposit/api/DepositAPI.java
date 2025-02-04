@@ -20,7 +20,7 @@ public class DepositAPI {
         this.depositService = depositService;
     }
 
-    // ✅ 예금 기본금리 높은 순 정렬 API
+
     @Operation(
             summary = "예금 기본금리 높은 순 정렬",
             description = "가입기간과 최소 가입 금액을 기준으로 필터링 후, 기본 금리가 높은 순서대로 정렬하여 반환합니다."
@@ -31,7 +31,7 @@ public class DepositAPI {
         return depositService.getDepositsSortedByBaseRate(term, minAmount);
     }
 
-    // ✅ 예금 최고금리 높은 순 정렬 API
+
     @Operation(
             summary = "예금 최고금리 높은 순 정렬",
             description = "가입기간과 최소 가입 금액을 기준으로 필터링 후, 최고 금리가 높은 순서대로 정렬하여 반환합니다."
@@ -42,7 +42,7 @@ public class DepositAPI {
         return depositService.getDepositsSortedByHighRate(term, minAmount);
     }
 
-    // ✅ 예금 단일 조회 API
+
     @Operation(
             summary = "예금 단일 조회",
             description = "지정된 ID에 해당하는 예금 정보를 반환합니다."

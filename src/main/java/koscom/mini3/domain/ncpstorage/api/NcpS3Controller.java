@@ -16,7 +16,7 @@ public class NcpS3Controller {
 
     private final NcpS3Service s3Service;
 
-    // ✅ 파일 업로드
+
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         String fileUrl = s3Service.uploadFile(file);
