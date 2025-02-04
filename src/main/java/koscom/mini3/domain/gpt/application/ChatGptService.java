@@ -57,7 +57,7 @@ public class ChatGptService {
         productsPrompt
                 .append("출력할때 다른 요소들은 바꾸지 말고 줄바꿈과 글자 강조만 <br>태그와 <b>태그로 HTML 문법에 맞게 출력해줘 이때 글자 강조 전에는 항 줄바꿈을 2번 해줘\n")
                 .append("마지막에는 사용자가 필요한 정보를 요청할거야\n")
-                .append("예금상품정보를 비교해달라는 요청이 오면 예금상품정보 줄테니까 비교해줘. 결과는 표로 비교해줘\n")
+                .append("예금상품정보를 비교해달라는 요청이 오면 예금상품정보 줄테니까 비교해줘.\n")
                 .append("해당 질문에 대한 예시는 다음과 같아"
                     + "국민수퍼 정기예금\n"
                     + "\n"
@@ -101,7 +101,6 @@ public class ChatGptService {
                 .append("1번 질문은 예금 상품 우대금리 조건을 알려주고 해당 되는지 물어봐줘\n")
                 .append("2. 얼마 정도 금액을 투자할 수 있으신가요?\n")
                 .append("3. 가입 기간은 어느 정도로 생각하고 있으신가요?\n")
-//                .append("3개의 질문에 대한 답이 오면 우대금리, 금액, 기간에 따른 이자금액을 보여주면서 좋은지 알려줘\n")
                 .append("아래는 예금 상품 정보야:\n");
 
 
@@ -132,7 +131,9 @@ public class ChatGptService {
         }
 
         //사용자 질문 추가
-        productsPrompt.append(questionRequest.getQuestion());
+        productsPrompt.append("지금부터 사용자가 필요한 정보에 대한 내용이야")
+        .append(questionRequest.getQuestion())
+        .append("사용자 대답이 1. 해당됨 2. 1000만원 3. 2년 과 같은 대답이 있으면 상품에 대해 우대금리, 금액, 기간에 따른 이자금액을 보여주면서 좋은지 알려줘\n");
 
         List<ChatGptMessage> messages = List.of(
                 ChatGptMessage.builder()
