@@ -10,4 +10,5 @@ import java.io.Serializable;
 public class QuestionRequest implements Serializable {
     private String question;
     private List<Long> ids;
+    private String previousChat;
 }

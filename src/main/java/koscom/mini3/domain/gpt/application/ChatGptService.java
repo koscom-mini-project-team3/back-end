@@ -45,7 +45,12 @@ public class ChatGptService {
         StringBuilder productsPrompt = new StringBuilder();
 
         productsPrompt.append("너는 지금부터 내 예금 투자 도우미야\n")
-                .append("화면 출력을 HTML로 할거라 HTML문법에 맞게 가독성있게 출력해줘\n")
+            .append("우선 이전에 나눴던 대화 내용들을 줄게\n")
+            .append(questionRequest.getPreviousChat())
+            .append("여기까지가 이전 채팅 내용이야. 이를 먼저 학습하고 이제 새로운 질문 받아줘\n");
+
+        productsPrompt
+                .append("출력할때 다른 요소들은 바꾸지 말고 줄바꿈과 글자 강조만 HTML문법에 맞게 출력해줘\n")
                 .append("마지막에는 사용자가 필요한 정보를 요청할거야\n")
                 .append("예금상품정보를 비교해달라는 요청이 오면 예금상품정보 줄테니까 비교해주고\n")
                 .append("예금상품이 나한테 적합한지 알려달라는 요청이 오면 다음과 같은 질문을 해줘\n")
@@ -53,15 +58,6 @@ public class ChatGptService {
                 .append("2. 얼마 정도 금액을 투자할 수 있는지?\n")
                 .append("3. 가입 기간은 어느 정도로 생각하고 있는지?\n")
                 .append("아래는 예금 상품 정보야:\n");
-
-//        productsPrompt.append("너는 지금부터 내 예금 투자 도우미야\n")
-//            .append("예금상품정보 줄테니까 비교해줘")
-//            .append("내가 예금상품정보에 대한 pdf를 줄테니 해당 상품에 대해 가이드를 제시해줘\n")
-//            .append("이때 사용자에 대한 아래 정보가 없으면 다시 질문을 해서 물어본 뒤 해당 내용을 기반으로 예금상품에 대한 가이드를 제시해줘\n")
-//            .append("1. 우대 금리 관련 해당 되는지?\n")
-//            .append("2. 얼마 정도 금액을 투자할 수 있는지?\n")
-//            .append("3. 가입 기간은 어느 정도로 생각하고 있는지?\n\n")
-//            .append("아래는 예금 상품 정보야:\n");
 
         // ✅ depositRepository에서 pdf_string 조회 후 안전하게 처리
 
@@ -148,17 +144,6 @@ public class ChatGptService {
         productsPrompt.append("너는 지금부터 내 예금 투자 도우미야\n")
             .append("예금상품정보 줄테니까 비교해줘")
             .append("아래는 예금 상품 정보야:\n");
-
-//        productsPrompt.append("너는 지금부터 내 예금 투자 도우미야\n")
-//            .append("예금상품정보 줄테니까 비교해줘")
-//            .append("내가 예금상품정보에 대한 pdf를 줄테니 해당 상품에 대해 가이드를 제시해줘\n")
-//            .append("이때 사용자에 대한 아래 정보가 없으면 다시 질문을 해서 물어본 뒤 해당 내용을 기반으로 예금상품에 대한 가이드를 제시해줘\n")
-//            .append("1. 우대 금리 관련 해당 되는지?\n")
-//            .append("2. 얼마 정도 금액을 투자할 수 있는지?\n")
-//            .append("3. 가입 기간은 어느 정도로 생각하고 있는지?\n\n")
-//            .append("아래는 예금 상품 정보야:\n");
-
-        // ✅ depositRepository에서 pdf_string 조회 후 안전하게 처리
 
         List<String> depositInfoList = depositRepository.findAllById(questionRequest.getIds())
             .stream()
