@@ -15,7 +15,7 @@ public class ChatGptConfig {
     public static final Integer MAX_TOKEN = 15000;
     public static final Boolean STREAM = true;
     public static final String ROLE = "user";
-    public static final Double TEMPERATURE = 0.6;
+    public static final Double TEMPERATURE = 0.4;
     public static final String CHAT_URL = "https://api.openai.com/v1/chat/completions";
 
     @Value("${openai.api.key}")
